@@ -4,6 +4,7 @@
   "description": "",
   "version": "0.5.0",
   "publisher": "QuantaNaut",
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.96.0"
   },

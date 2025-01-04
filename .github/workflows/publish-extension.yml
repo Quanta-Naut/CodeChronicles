@@ -1,37 +1,44 @@
-name: "Publish CodeChronicles VS Code Extension"
+name: "cd"
 
 on:
   push:
     branches:
-      - main  # Trigger on push to the 'main' branch
+      - main  # Trigger the workflow on push to the 'cool' branch
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]  # You can expand this matrix to test on other platforms if needed
-    runs-on: ${{ matrix.os }}
+  cd:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4  # Checkout the repository code
+      - name: Checkout to branch
+        uses: actions/checkout@v2  # Checkout the repository code
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v2  # Use the latest setup-node version (v2)
         with:
-          node-version: 20.16.0  # Specify the exact Node.js version you need
+          node-version: ${{ secrets.NODE_VERSION }}  # Use Node.js version from GitHub secrets
 
-      - name: Installing Dependencies
-        run: npm install  # Install regular dependencies
+      - name: Install packages
+        run: npm ci  # Install dependencies with clean npm cache
 
-      - name: Minor version bump
-        env:
-          CI: true
+      - name: Calculate version
+        id: calculateVersion
         run: |
-          git config --global user.name "${{ github.actor }}"  # Set the username
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"  # Set the email
-          npm version minor  # Increment the minor version in package.json
+          # Extract the app version from package.json using jq and sed
+          APP_VERSION=$(cat package.json | jq -r ".version")
+          echo "::set-output name=AppVersion::$APP_VERSION"
+          echo "app version = v$APP_VERSION"
 
-      - name: Publish the extension
+      - name: Build VSIX package
+        run: npm run build -- -o custom-profiles-for-vscode.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix
+
+      - name: Publish extension package
         env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}  # VSCE token for publishing
-        run: npx vsce publish --pat $VSCE_PAT  # Publish the extension with the token
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}  # Use VSCE_PAT from GitHub secrets
+        run: npm run vsce -- publish -p $VSCE_PAT  # Publish using vsce with the token
+
+      - uses: actions/upload-artifact@v2
+        name: Upload artifact
+        with:
+          name: custom-profiles-for-vscode.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix  # Naming the artifact based on version
+          path: custom-profiles-for-vscode.v${{ steps.calculateVersion.outputs.AppVersion }}.vsix  # Path to the VSIX file to upload

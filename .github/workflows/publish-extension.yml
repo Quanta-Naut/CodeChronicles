@@ -1,0 +1,46 @@
+name: Publish CodeChronicles VS Code Extension
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # This specifies the runner to use (Ubuntu in this case)
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2  # This action checks out the code in your repository
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js v20.16.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: '^20.16.0'  # Use the specific Node.js version (in your case v20.16.0)
+
+      # Step 3: Caching 
+      - name: Cache Node.js modules
+        uses: actions/cache@v4.2.0
+        with:
+          path: node_modules/  # Path to the directory to be cached
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}  # Cache key based on the package-lock file
+          restore-keys: |
+            ${{ runner.os }}-node-  # Fallback key
+
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: |
+          npm install -g vsce  # Install the VSCE (Visual Studio Code Extension) tool globally
+          npm install  # Install other dependencies from package.json
+
+      # Step 5: Package the extension
+      - name: Package the extension
+        run: vsce package  # This will package the extension into a .vsix file
+
+      # Step 6: Publish the extension
+      - name: Publish the extension
+        env:
+          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}  # GitHub secret for authentication with the VS Marketplace
+        run: vsce publish patch --token $VSCE_TOKEN  # Publish the extension with automatic patch versioning

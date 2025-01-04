@@ -1,4 +1,4 @@
-name: "Publish extension"
+name: "Publish CodeChronicles extension"
 
 on:
   push:
@@ -20,6 +20,14 @@ jobs:
         with:
           node-version: 20.16.0  # Specify the exact Node.js version you need
 
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules  # Cache the node_modules directory
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}  # Cache key based on package-lock.json
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
       - name: Installing Dependencies
         run: npm install  # Install regular dependencies
 
@@ -29,8 +37,8 @@ jobs:
         run: |
           git config --global user.name "${{ github.actor }}"  # Set the username
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"  # Set the email
-          git add .
-          git commit -m "Version Commit"
+          git add .  # Add changes to the commit
+          git commit -m "Version Commit"  # Commit changes
           npm version minor  # Increment the minor version in package.json
 
       - name: Publish the extension

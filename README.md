@@ -11,7 +11,7 @@
 </h4>
 ---
 <p align="center">
-<a href="https://marketplace.visualstudio.com/items?itemName=QuantaNaut.codechronicles"><img src="https://img.shields.io/badge/VS%20Code-Extension-7303fc
+<a href="https://marketplace.visualstudio.com/items?itemName=QuantaNaut.codechronicles"><img src="https://img.shields.io/badge/VSCode-Extension-7303fc
 " alt="VS Code: Extension"></a>
 <a href="https://github.com/Quanta-Naut/CodeChronicles"><img src="https://img.shields.io/badge/Repository-GitHub-fc0394.svg" alt="Repository: GitHub"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-orange.svg" alt="License: MIT"></a>

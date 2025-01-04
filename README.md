@@ -1,5 +1,23 @@
 ![CodeChronicles.png](images/CodeChronicles.png)
-# CodeChronicles: Transforming Your Code into a Timeless Journey!
+<h1 align="center" style="border-bottom: none">
+    <b>
+        <p>CodeChronicles</p>
+    </b>
+    Transforming Your Code into a Timeless Journey! <br>
+</h1>
+---
+<h4 align="center" style="border-bottom: none">
+    Effortlessly merge code summaries and watch your GitHub charts shine!
+</h4>
+---
+<p align="center">
+<a href="https://marketplace.visualstudio.com/items?itemName=QuantaNaut.codechronicles"><img src="https://img.shields.io/badge/VS%20Code-Extension-7303fc
+" alt="VS Code: Extension"></a>
+<a href="https://github.com/Quanta-Naut/CodeChronicles"><img src="https://img.shields.io/badge/Repository-GitHub-fc0394.svg" alt="Repository: GitHub"></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-orange.svg" alt="License: MIT"></a>
+<a href="https://www.linkedin.com/in/tarun-kumar-s-676a74267/"><img src="https://img.shields.io/badge/LinkedIn-Profile-035afc.svg" alt="LinkedIn: Profile"></a>
+
+</p>
 ---
 ### **Table of Contents:**
 
@@ -17,9 +35,9 @@ Every line of code has a story, and every commit builds your legacy. CodeChronic
 
 Start documenting your coding adventures effortlessly, one commit at a time, and watch your story unfold in the chronicles of GitHub!
 
-#### **Head to [Installation](#installation) to Know How to Use It!**
+#### **Head to [Installation](#installation) to setup CodeChronicles!**
 
-#### **Want to contribute, check out [CONTRIBUTION.md](CONTRIBUTION.md)!**
+#### **Want to contribute?, check out [CONTRIBUTION.md](CONTRIBUTION.md)!**
 
 
 ### **Why CodeChronicles?**
@@ -189,7 +207,9 @@ All the commands listed can be executed by pressing **F1** or **Ctrl + Shift + P
 
 -  [<img src="https://avatars.githubusercontent.com/u/123290216" width="50" height="50">](https://github.com/Quanta-Naut)
 
+### **Want to contribute?, check out [CONTRIBUTION.md](CONTRIBUTION.md)!**
 
+---
 ### **License**
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.

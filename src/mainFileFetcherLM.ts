@@ -61,7 +61,7 @@ export async function mainFileDescriber(filePath: string): Promise<string> {
         // Send each chunk separately, requesting a response from the model
         for (const chunk of codeChunks) {
             const messages = [
-                vscode.LanguageModelChatMessage.User(`You are a code assistant. In the given code, explain what the code is about and what does the code do. Also give valuable statistics about the code like the number of lines, number of functions, number of classes, etc. Don't provide any code snippets.`),
+                vscode.LanguageModelChatMessage.User(`You are a code assistant. In the given code, explain what the code is about and what does the code do. Also give valuable statistics about the code like the number of lines, number of functions, number of classes, etc. Don't provide any code snippets. Keep the explanation short and concise to 15 lines and 5 lines of number of functions, classes, lines of code, etc.`),
                 vscode.LanguageModelChatMessage.User(`Code: ${chunk}`)
             ];
     

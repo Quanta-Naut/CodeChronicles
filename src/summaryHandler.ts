@@ -4,6 +4,7 @@ import * as path from "path";
 import os from "os";
 import { fetchFileDescriptionCopilot } from "./descriptionLM";
 import { mainFileFetcher, mainFileDescriber } from "./mainFileFetcherLM";
+import { summaryClub } from "./summaryClubber";
 
 function mainFileValidator(fileNameData: string, mainFileLine: string): string {
   const fileName = fileNameData.split(" ");
@@ -86,6 +87,7 @@ export async function generateMarkdownSummary(
     const mainFile = mainFileValidator(filesNames, description);
     // markdownContent += `\nMain FIle: | ${description} |\n`;
     description = await mainFileDescriber(mainFile);
+    description = await summaryClub(description);
     markdownContent += `### Project Description:\n ${
       description || "Description not available"
     }\n`;

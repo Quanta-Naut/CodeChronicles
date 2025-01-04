@@ -89,7 +89,7 @@ export function activate(context: vscode.ExtensionContext) {
     executeAtIntervals(context);
     intervalTime =
       context.globalState.get<number>("codechronicle.interval") || 1500000;
-  }, intervalTime);
+  }, intervalTime); // Interval set to 25 minutes by default
 
   context.subscriptions.push({
     dispose: () => {

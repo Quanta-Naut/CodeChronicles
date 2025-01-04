@@ -8,7 +8,7 @@ const git = simpleGit();
 
 //TODO: Change the folder name
 const branchName = "main";
-const folderName = "MyVSCodeExtensionFolder";
+const folderName = "CodeChronicles";
 
 export async function initializeAndPushRepository(
   context: vscode.ExtensionContext

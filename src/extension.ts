@@ -37,7 +37,7 @@ async function executeAtIntervals(context: vscode.ExtensionContext) {
       .then((selected) => {
         if (selected === "Configure") {
           // Open the configuration/settings page or perform configuration logic
-          vscode.commands.executeCommand("codechronicle.configure");
+          vscode.commands.executeCommand("codechronicles.configure");
           // initializeAndPushRepository(context);
         }
       });
@@ -73,22 +73,22 @@ export function activate(context: vscode.ExtensionContext) {
       .then((selected) => {
         if (selected === "Configure") {
           // Open the configuration/settings page or perform configuration logic
-          vscode.commands.executeCommand("codechronicle.configure");
+          vscode.commands.executeCommand("codechronicles.configure");
           // initializeAndPushRepository(context);
         }
       });
   }
-  let intervalTime = context.globalState.get<number>("codechronicle.interval");
+  let intervalTime = context.globalState.get<number>("codechronicle_interval");
 
   // Check if the stored interval is available
   if (!intervalTime) {
-    context.globalState.update("codechronicle.interval", 1500000); // Default interval: 25 minutes
+    context.globalState.update("codechronicle_interval", 1500000); // Default interval: 25 minutes
   }
 
   const intervalId = setInterval(() => {
     executeAtIntervals(context);
     intervalTime =
-      context.globalState.get<number>("codechronicle.interval") || 1500000;
+      context.globalState.get<number>("codechronicle_interval") || 1500000;
   }, intervalTime); // Interval set to 25 minutes by default
 
   context.subscriptions.push({
@@ -99,7 +99,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Command to generate Markdown summary
   const generateMarkdownDisposable = vscode.commands.registerCommand(
-    "codechronicle.generateMarkdownSummary",
+    "codechronicles.generateMarkdownSummary",
     async () => {
       const proceed = await generateMarkdownSummary(context);
       if (proceed) {
@@ -109,7 +109,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const showRepository = vscode.commands.registerCommand(
-    "codechronicle.viewRepository",
+    "codechronicles.viewRepository",
     async () => {
       vscode.window
         .showInformationMessage(
@@ -153,7 +153,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const configure = vscode.commands.registerCommand(
-    "codechronicle.configure",
+    "codechronicles.configure",
     async () => {
       const isConfigured = context.globalState.get<boolean>(
         "codechronicle_isConfigured"
@@ -183,7 +183,7 @@ export function activate(context: vscode.ExtensionContext) {
           return;
         } else {
           await vscode.commands.executeCommand(
-            "codechronicle.resetGlobalValues"
+            "codechronicles.resetGlobalValues"
           );
           await initializeAndPushRepository(context);
         }
@@ -195,7 +195,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const clearAllData = vscode.commands.registerCommand(
-    "codechronicle.resetGlobalValues",
+    "codechronicles.resetGlobalValues",
     async () => {
       const storedPath = context.globalState.get<string>(
         "codechronicle_repoFolderPath"
@@ -214,7 +214,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const reConfInterval = vscode.commands.registerCommand(
-    "codechronicle.configureInterval",
+    "codechronicles.configureInterval",
     async () => {
       const interval = await vscode.window.showInputBox({
         placeHolder: "Enter in minutes",
@@ -233,7 +233,7 @@ export function activate(context: vscode.ExtensionContext) {
       });
       if (interval) {
         intervalTime = parseInt(interval) * 60000;
-        context.globalState.update("codechronicle.interval", intervalTime);
+        context.globalState.update("codechronicle_interval", intervalTime);
         vscode.window.showInformationMessage(
           `CodeChronicle: Interval set to ${interval} minutes.`
         );

@@ -2,7 +2,7 @@
   "name": "codechronicles",
   "displayName": "CodeChronicles",
   "description": "",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "QuantaNaut",
   "engines": {
     "vscode": "^1.96.0"

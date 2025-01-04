@@ -34,6 +34,11 @@ jobs:
         run: |
           npm install -g vsce  # Install the VSCE (Visual Studio Code Extension) tool globally
           npm install  # Install other dependencies from package.json
+          
+      - name: Commit changes before version bump
+        run: |
+          git add .
+          git commit -m "Automated commit before version bump" || echo "No changes to commit"
 
       # Step 5: Package the extension
       - name: Package the extension

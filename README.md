@@ -1,13 +1,13 @@
 ![CodeChronicles.png](images/CodeChronicles.png)
-<h1 align="center">
+<h1 align="center" style="border-bottom: none">
     <b>
         <p>CodeChronicles</p>
     </b>
     Transforming Your Code into a Timeless Journey! <br>
 </h1>
-<h4 align="center">
+<h3 align="center">
     Effortlessly merge code summaries and watch your GitHub charts shine!
-</h4>
+</h3>
 
 ___
 <p align="center">

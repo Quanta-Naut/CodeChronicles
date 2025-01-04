@@ -30,7 +30,7 @@ jobs:
           git config --global user.name "${{ github.actor }}"  # Set the username
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"  # Set the email
           git add .
-          git commit .
+          git commit -m "Version Commit"
           npm version minor  # Increment the minor version in package.json
 
       - name: Publish the extension

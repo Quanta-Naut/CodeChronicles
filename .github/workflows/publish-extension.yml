@@ -43,4 +43,4 @@ jobs:
       - name: Publish the extension
         env:
           VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}  # GitHub secret for authentication with the VS Marketplace
-        run: vsce publish patch --token $VSCE_TOKEN  # Publish the extension with automatic patch versioning
+        run: vsce publish patch  # Publish the extension with automatic patch versioning

@@ -14,7 +14,7 @@ function checkInternetConnection(): Promise<boolean> {
         if (res.statusCode === 200) {
           resolve(true); // Internet is available
         } else {
-          resolve(false); // Internet is not available
+          resolve(false); // Internet is not available return false
         }
       })
       .on("error", () => {

@@ -31,16 +31,6 @@ jobs:
       - name: Installing Dependencies
         run: npm install  # Install regular dependencies
 
-      - name: Minor version bump
-        env:
-          CI: true
-        run: |
-          git config --global user.name "${{ github.actor }}"  # Set the username
-          git config --global user.email "123290216+Quanta-Naut@users.noreply.github.com"  # Set the email
-          git add .  # Add changes to the commit
-          git commit -m "Version Commit"  # Commit changes
-          npm version minor  # Increment the minor version in package.json
-
       - name: Publish the extension
         env:
           VSCE_PAT: ${{ secrets.VSCE_TOKEN }}  # VSCE token for publishing

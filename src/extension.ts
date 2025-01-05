@@ -165,7 +165,7 @@ export function activate(context: vscode.ExtensionContext) {
         const reConfigure = await vscode.window.showInputBox({
           placeHolder: "Enter y/n",
           prompt:
-            "CodeChronicle is already configured. Do you want to re-configure?? Y/n", //FIXME: My Ext
+            "CodeChronicle is already configured. Do you want to re-configure?? Y/N", 
           validateInput: (input) => {
             if (!input) {
               return "Input cannot be empty";

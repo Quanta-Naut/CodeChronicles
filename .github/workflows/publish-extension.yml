@@ -36,7 +36,7 @@ jobs:
           CI: true
         run: |
           git config --global user.name "${{ github.actor }}"  # Set the username
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"  # Set the email
+          git config --global user.email "123290216+Quanta-Naut@users.noreply.github.com"  # Set the email
           git add .  # Add changes to the commit
           git commit -m "Version Commit"  # Commit changes
           npm version minor  # Increment the minor version in package.json

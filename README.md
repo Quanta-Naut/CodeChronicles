@@ -174,7 +174,7 @@ All the commands listed can be executed by pressing **F1** or **Ctrl + Shift + P
 	
 	All data gets cleared.
 	
-	![clearConf2.png](images/clearCOnf2.png)
+	![clearConf2.png](images/clearConf2.png)
 
 4. **`CodeChronicles: Configure`**
 	**Configure** command is used to set up the GitHub repository where all the summary merging happens. In the background, it automatically creates a local folder to store all the summaries.

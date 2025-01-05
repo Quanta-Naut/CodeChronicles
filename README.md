@@ -62,7 +62,6 @@ ___
 
 - ##### Requirements:
 	For **CodeChronicles** to function properly, you will need the following installed on your system:
-	- **GitHub Desktop**
 	- **Git**
 	- **GitHub Copilot (VS Code Extension)**
 
@@ -72,22 +71,23 @@ ___
 
 - **Installing Requirements:**
 	Follow the steps below to ensure all necessary requirements are installed and configured properly:
-	- **GitHub Desktop**
-		1. Install **GitHub Desktop** from [here](https://desktop.github.com/download/).
-		2. Once GitHub Desktop is installed, log in to your GitHub account.
-		
-		![github-signin.png](images/github-signin.png)
-		
-		3. Open GitHub Desktop, navigate to **Files > Options > Git**, and ensure that a name and any email (Gmail or GitHub or anything) are set.
-		
-		![github-git.png](images/github-git.png)
-		
-		4.  Click **Save**.
-		
+	
 	- **Git**
 		1. Install **Git** from [here](https://git-scm.com/downloads).
 		2. During the Git installation, simply click 'Next' until the installation is complete.
-		3. That's all with **Git**.
+		3. After completing the Git installation, go to your GitHub profile, click on your avatar in the top-right corner, navigate to **Settings**, and select **Emails** from the left-hand menu.
+		4. Now, copy the noreply email, which will look something like this: `123456789+Quanta-Naut@users.noreply.github.com`. The one highlighted in red box.
+		
+		![git-noreply-email.png](images/git-noreply-email.png)
+		
+		5. Open the command prompt and run the following commands to set your Git username and email:
+		
+			`git config --global user.name "Your Name" 
+			`git config --global user.email "noreply_email@users.noreply.github.com"
+			
+			In place of `Your Name`, add your name, and in place of `noreply_email@users.noreply.github.com`, paste the noreply email you copied.
+			
+		6. That's all with **Git**.
 		
 	- **GitHub Copilot**
 		1. Open **VS Code**, go to the Extensions view, and install **GitHub Copilot**.

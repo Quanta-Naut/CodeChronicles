@@ -38,6 +38,10 @@
         "title": "CodeChronicles: Set Interval"
       },
       {
+        "command": "codechronicles.setUserNameandEmail",
+        "title": "CodeChronicles: Set Git UserName and Email"
+      },
+      {
         "command": "codechronicles.generateMarkdownSummary",
         "title": "CodeChronicles: Generate Summary"
       }
@@ -71,6 +75,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "@octokit/rest": "^21.0.2",
     "simple-git": "^3.27.0"
   }
 }

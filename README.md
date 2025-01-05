@@ -12,13 +12,15 @@
 
 ___
 <p align="center">
-<a href="https://marketplace.visualstudio.com/items?itemName=QuantaNaut.codechronicles"><img src="https://img.shields.io/badge/VS%20Code-Extension-7303fc.svg" alt="Repository: GitHub"></a>
+<a href="https://marketplace.visualstudio.com/items?itemName=QuantaNaut.codechronicles"><img src="https://img.shields.io/badge/VS Code Ext-CodeChronicles-7303fc.svg" alt="Repository: GitHub"></a>
 <a href="https://github.com/Quanta-Naut/CodeChronicles"><img src="https://img.shields.io/badge/Repository-GitHub-fc0394.svg" alt="Repository: GitHub"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-orange.svg" alt="License: MIT"></a>
 <a href="https://www.linkedin.com/in/tarun-kumar-s-676a74267/"><img src="https://img.shields.io/badge/LinkedIn-Profile-035afc.svg" alt="LinkedIn: Profile"></a>
 </p>
 
 ---
+
+#### Search **"CodeChronicles"** on the **VS Code Extension** or click the above extension link to download.
 
 ### **Table of Contents:**
 

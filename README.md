@@ -211,7 +211,7 @@ All the commands listed can be executed by pressing **F1** or **Ctrl + Shift + P
 
 -  [<img src="https://avatars.githubusercontent.com/u/123290216" width="50" height="50">](https://github.com/Quanta-Naut)
 
-### **Want to contribute?, check out [CONTRIBUTION.md](CONTRIBUTION.md)!**
+### **Want to contribute?, check out [CONTRIBUTION.md](CONTRIBUTION.md)!** Will be updated soon.
 
 ---
 ### **License**

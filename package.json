@@ -2,7 +2,7 @@
   "name": "codechronicles",
   "displayName": "CodeChronicles",
   "description": "Effortlessly merge code summaries and watch your GitHub charts shine!",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "publisher": "QuantaNaut",
   "icon": "images/logo.png",
   "engines": {

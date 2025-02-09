@@ -82,7 +82,7 @@ ___
 		
 		5. Open the command prompt and run the following commands to set your Git username and email:
 		
-			`git config --global user.name "Your Name"
+			`git config --global user.name "Your Name"`
 			`git config --global user.email "noreply_email@users.noreply.github.com"`
 			
 			In place of `Your Name`, add your name, and in place of `noreply_email@users.noreply.github.com`, paste the noreply email you copied.

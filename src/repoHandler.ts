@@ -6,9 +6,10 @@ import { createFolderInDocuments } from "./localRepoHandler";
 
 const git = simpleGit();
 
-//TODO: Change the folder name
 const branchName = "main";
 const folderName = "CodeChronicles";
+const demoFileName = "demo.txt";
+const demoFileContent = "This is a demo file for CodeChronicles.";
 
 export async function initializeAndPushRepository(
   context: vscode.ExtensionContext
@@ -20,13 +21,16 @@ export async function initializeAndPushRepository(
         vscode.window.showErrorMessage(
           "CodeChronicles: Folder path not found. Please try configuring again."
         );
+        return; // Stop execution if path is not found
       }
     })
     .catch((error) => {
       console.error("Error in folder creation:", error);
+      vscode.window.showErrorMessage(`CodeChronicles: Error creating folder: ${error.message}`);
+      return; // Stop execution if folder creation fails
     });
-  let repoDirectory = context.globalState.get<string>("codechronicle_repoFolderPath");
 
+  let repoDirectory = context.globalState.get<string>("codechronicle_repoFolderPath");
   let githubRepoUrl = context.globalState.get<string>("codechronicle_repoGithubPath");
 
   if (!githubRepoUrl) {
@@ -34,7 +38,6 @@ export async function initializeAndPushRepository(
       placeHolder: "https://github.com/user_name/test_repo.git",
       prompt: "Please provide the GitHub repository URL:",
       validateInput: (input) => {
-        // Optional: Add a simple validation to check GitHub URL format
         const githubRepoRegex =
           /^https:\/\/github\.com\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_.-]+(\.git)?$/;
         return githubRepoRegex.test(input)
@@ -44,12 +47,8 @@ export async function initializeAndPushRepository(
     });
 
     if (userInput) {
-      // Store the input in globalState
       await context.globalState.update("codechronicle_repoGithubPath", userInput);
-      // vscode.window.showInformationMessage(
-      //   `Stored repository URL: ${userInput}`
-      // );
-      githubRepoUrl = userInput; // Update the variable after storing
+      githubRepoUrl = userInput;
     } else {
       vscode.window.showWarningMessage(
         "CodeChronicles: No input provided. Operation canceled. Retry to configure the repository."
@@ -59,31 +58,21 @@ export async function initializeAndPushRepository(
   }
 
   try {
-    // Ensure the directory exists
     if (!repoDirectory) {
       throw new Error("Local Repository folder path not found.");
     }
     const repoPath = path.resolve(repoDirectory);
 
-    // Set Git to the correct working directory
     await git.cwd(repoPath);
-    // console.log(`Using repository path: ${repoPath}`);
-
-    // Initialize the Git repository
     await git.init();
-    // console.log("Git repository initialized.");
 
-    // Check if the branch exists
     const branchList = await git.branch();
     if (!branchList.all.includes(branchName)) {
       await git.checkoutLocalBranch(branchName);
-      // vscode.window.showInformationMessage(`Branch '${branchName}' created.`);
     } else {
       await git.checkout(branchName);
-      // console.log(`Checked out to branch '${branchName}'.`);
     }
 
-    // Check if the remote 'origin' exists
     const remotes = await git.getRemotes();
     const remoteExists = remotes.some((remote) => remote.name === "origin");
 
@@ -92,66 +81,50 @@ export async function initializeAndPushRepository(
         throw new Error("GitHub repository URL not provided.");
       }
       await git.addRemote("origin", githubRepoUrl);
-      // vscode.window.showInformationMessage(
-      //   `Remote 'origin' added: ${githubRepoUrl}`
-      // );
     }
-    // else {
-    //   console.log("Remote 'origin' already exists.");
-    // }
 
-    // Perform a git pull to fetch the latest changes
+    let pullSuccessful = true;
     try {
       await git.pull("origin", branchName);
-      // vscode.window.showInformationMessage(
-      //   `Pulled the latest changes from 'origin/${branchName}'.`
-      // );
-    } catch (err) {
-      // console.warn(
-      //   "Git pull failed. This might happen if the branch does not exist remotely yet.",
-      //   err
-      // );
-      // vscode.window.showErrorMessage(
-      //   "Error. This might happen if the branch does not exist remotely yet."
-      // );
+    } catch (pullError) {
+      pullSuccessful = false;
+      console.warn("Git pull failed (likely empty repo):", pullError);
     }
 
-    // Check if there are files to commit
-    const fs = require("fs");
+    const filesAfterPull = fs.readdirSync(repoPath);
+
+    if (!pullSuccessful || filesAfterPull.length === 0) {
+      const demoFilePath = path.join(repoPath, demoFileName);
+      fs.writeFileSync(demoFilePath, demoFileContent);
+      await git.add(".");
+      await git.commit("Added initial demo file");
+
+      try {
+        await git.push("origin", branchName);
+        vscode.window.showInformationMessage("CodeChronicles: Initial demo file pushed. Make sure the repository exists on GitHub.");
+      } catch (pushError) {
+        vscode.window.showErrorMessage("CodeChronicles: Failed to push initial commit. Ensure the repository exists on GitHub and is not empty. You might need to create the repo manually on GitHub first.");
+        return;
+      }
+    }
+
     const files = fs.readdirSync(repoPath);
-    if (files.length === 0) {
-      // vscode.window.showWarningMessage(
-      //   "No files found to commit. Add files to the repository folder."
-      // );
-      return;
+    if (files.length > 1 || (files.length === 1 && !files.includes(demoFileName))) {
+      await git.add(".");
+      await git.commit("Adding/updating project files");
+      await git.push("origin", branchName);
     }
-
-    // Add all files to the staging area
-    await git.add(".");
-    // console.log("Files added to the staging area.");
-
-    // Commit the changes
-    const commitMessage = "Initial commit";
-    await git.commit(commitMessage);
-    // console.log("Files committed with message:", commitMessage);
-
-    // Push the changes to GitHub
-    await git.push("origin", branchName); // Pushes to the correct branch
 
     const statusData = context.globalState.get<string>("codechronicle_isConfigured");
     if (statusData) {
-      vscode.window.showInformationMessage(
-        "CodeChronicles: Progress has been merged with the GitHub repository."
-      );
-    }
-    else {
-      vscode.window.showInformationMessage(
-        "CodeChronicles: Successfully Configured Repository."
-      );
+      vscode.window.showInformationMessage("CodeChronicles: Progress has been merged with the GitHub repository.");
+    } else {
+      vscode.window.showInformationMessage("CodeChronicles: Successfully Configured Repository.");
     }
     await context.globalState.update("codechronicle_isConfigured", true);
+
   } catch (error) {
-    // console.error("Error initializing and pushing repository:", error);
-    vscode.window.showErrorMessage("CodeChronicles: The repository initialization and push attempt failed.");
+    console.error("Error initializing and pushing repository:", error);
+    vscode.window.showErrorMessage(`CodeChronicles: The repository operation failed`);
   }
 }

@@ -21,6 +21,13 @@ ___
 ---
 
 #### Search **"CodeChronicles"** on the **VS Code Extension** or click the above extension link to download.
+---
+## 🎃 Hacktoberfest 2025
+
+Welcome, contributors!  
+If you're participating in Hacktoberfest, please read our [Contributing Guide](CONTRIBUTING.md) to get started.  
+We’d love your pull requests — big or small! 💜
+
 
 ### **Table of Contents:**
 
